@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Search from './components/Search.jsx';
 
+const API_BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = import.meta.env.VITE_TMDB_APY_KEY;
+const API_OPTIONS = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: `Bearer ${API_KEY}`,
+  },
+};
+
 const App = () => {
-    // Never mutate state directly; use setter function instead
+  // Never mutate state directly; use setter function instead
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Will only load at the start because it has an empty dependency array []
+  // Only runs once the component loads
+  useEffect(() => {}, []);
 
   return (
     <main>
@@ -17,7 +31,7 @@ const App = () => {
           </h1>
         </header>
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <h1 className="text=white">{searchTerm}</h1>
+        <h1 className="text=white">{searchTerm}</h1>
       </div>
     </main>
   );
